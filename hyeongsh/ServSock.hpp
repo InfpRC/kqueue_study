@@ -6,7 +6,7 @@
 
 class ServSock : public Socket {
 	public:
-		ServSock(std::string port, int listen_number);
+		ServSock(std::string &port, int &listen_number);
 		~ServSock();
 };
 

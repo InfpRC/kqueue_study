@@ -9,15 +9,11 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#define BUFFER_SIZE 100
-
 class Socket {
 	protected:
 		int sock;
 		struct sockaddr_in address;
 		socklen_t address_size;
-		char send_buf[BUFFER_SIZE];
-		char recv_buf[BUFFER_SIZE];
 
 	public:
 		Socket();

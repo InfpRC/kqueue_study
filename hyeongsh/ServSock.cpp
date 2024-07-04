@@ -1,7 +1,7 @@
 
 #include "ServSock.hpp"
 
-ServSock::ServSock(std::string port, int listen_number) : Socket() {
+ServSock::ServSock(std::string &port, int &listen_number) : Socket() {
 	sock = socket(PF_INET, SOCK_STREAM, 0);
 	if (sock == -1)
 		throw std::runtime_error("socket() error");
