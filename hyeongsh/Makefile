@@ -1,6 +1,6 @@
 NAME = ircserv
-SRCS = main.cpp
-INCS =
+SRCS = main.cpp ClntSock.cpp Kqueue.cpp Server.cpp ServSock.cpp Socket.cpp
+INCS = ClntSock.hpp Kqueue.hpp Server.hpp ServSock.hpp Socket.hpp
 INC_DIR = -I ./
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
