@@ -33,3 +33,19 @@ void Client::echoService() {
 int Client::getFd() {
 	return fd;
 }
+
+std::string Client::getRecvBuf() {
+	return recv_buffer;
+}
+
+std::string Client::getSendBuf() {
+	return send_buffer;
+}
+
+void Client::setRecvBuf(std::string message) {
+	recv_buffer = message;
+}
+
+void Client::setSendBuf(std::string message) {
+	send_buffer = message;
+}
