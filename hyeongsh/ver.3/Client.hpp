@@ -31,6 +31,8 @@ class Client {
 		std::string getSendBuf();
 		void setRecvBuf(std::string message);
 		void setSendBuf(std::string message);
+		void clearRecvBuf();
+		void clearSendBuf();
 };
 
 #endif

@@ -25,11 +25,6 @@ int Client::sendSocket() {
 	return false;
 }
 
-void Client::echoService() {
-	send_buffer = recv_buffer;
-	recv_buffer.clear();
-}
-
 int Client::getFd() {
 	return fd;
 }
@@ -46,6 +41,10 @@ void Client::setRecvBuf(std::string message) {
 	recv_buffer = message;
 }
 
-void Client::setSendBuf(std::string message) {
-	send_buffer = message;
+void Client::clearRecvBuf() {
+	recv_buffer.clear();
+}
+
+void Client::clearSendBuf() {
+	send_buffer.clear();
 }
