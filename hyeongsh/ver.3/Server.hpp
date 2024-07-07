@@ -16,6 +16,7 @@ class Server {
 		Channel channel;
 
 		void echoService(Client &clnt);
+		void channelService(Client &clnt);
 
 	public:
 		Server(std::string _port);

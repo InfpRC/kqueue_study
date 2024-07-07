@@ -29,8 +29,8 @@ void Server::run() {
 					channel.delClient(clnt_fd);
 					close(clnt_fd);
 				} else if (result == END) {
-					echoService(clnt);
-					kq.addEvent(clnt_fd, EVFILT_WRITE);
+					//echoService(clnt);
+					channelService(clnt);
 				} else {
 					continue ;
 				}
@@ -48,4 +48,17 @@ void Server::run() {
 void Server::echoService(Client &clnt) {
 	clnt.setSendBuf(clnt.getRecvBuf());
 	clnt.clearRecvBuf();
+	kq.addEvent(clnt.getFd(), EVFILT_WRITE);
+}
+
+void Server::channelService(Client &clnt) {
+	std::string message = clnt.getRecvBuf();
+	Channel::iterator user = channel.begin();
+	while (user != channel.end()) {
+		user->second.setSendBuf(clnt.getRecvBuf());
+		kq.addEvent(user->first, EVFILT_WRITE);
+		user++;
+	}
+	clnt.clearRecvBuf();
+	kq.addEvent(clnt.getFd(), EVFILT_WRITE);
 }

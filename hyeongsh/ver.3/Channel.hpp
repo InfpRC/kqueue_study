@@ -6,9 +6,8 @@
 
 #include "Client.hpp"
 
-class Channel {
+class Channel : public std::map< int, Client > {
 	private:
-		std::map< int, Client > clnt_map;
 
 	public:
 		Channel();
