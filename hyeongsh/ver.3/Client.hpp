@@ -26,9 +26,9 @@ class Client {
 
 		void echoService();
 
-		int getFd();
-		std::string getRecvBuf();
-		std::string getSendBuf();
+		int getFd() const;
+		std::string getRecvBuf() const;
+		std::string getSendBuf() const;
 		void setRecvBuf(std::string message);
 		void setSendBuf(std::string message);
 		void clearRecvBuf();

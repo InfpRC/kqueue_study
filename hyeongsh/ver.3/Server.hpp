@@ -15,6 +15,8 @@ class Server {
 		Kqueue kq;
 		Channel channel;
 
+		void echoService(Client &clnt);
+
 	public:
 		Server(std::string _port);
 		~Server();

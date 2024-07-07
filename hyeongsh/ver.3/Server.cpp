@@ -29,7 +29,7 @@ void Server::run() {
 					channel.delClient(clnt_fd);
 					close(clnt_fd);
 				} else if (result == END) {
-					clnt.echoService();
+					echoService(clnt);
 					kq.addEvent(clnt_fd, EVFILT_WRITE);
 				} else {
 					continue ;
@@ -43,4 +43,9 @@ void Server::run() {
 		}
 	}
 	close(serv.getFd());
+}
+
+void Server::echoService(Client &clnt) {
+	clnt.setSendBuf(clnt.getRecvBuf());
+	clnt.clearRecvBuf();
 }

@@ -25,20 +25,24 @@ int Client::sendSocket() {
 	return false;
 }
 
-int Client::getFd() {
+int Client::getFd() const {
 	return fd;
 }
 
-std::string Client::getRecvBuf() {
+std::string Client::getRecvBuf() const {
 	return recv_buffer;
 }
 
-std::string Client::getSendBuf() {
+std::string Client::getSendBuf() const {
 	return send_buffer;
 }
 
 void Client::setRecvBuf(std::string message) {
 	recv_buffer = message;
+}
+
+void Client::setSendBuf(std::string message) {
+	send_buffer = message;
 }
 
 void Client::clearRecvBuf() {
