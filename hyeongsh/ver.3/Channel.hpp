@@ -1,18 +1,18 @@
 
-#ifndef RESOURCE_HPP
-#define RESOURCE_HPP
+#ifndef CHANNEL_HPP
+#define CHANNEL_HPP
 
 #include <map>
 
 #include "Client.hpp"
 
-class Resource {
+class Channel {
 	private:
 		std::map< int, Client > clnt_map;
 
 	public:
-		Resource();
-		~Resource();
+		Channel();
+		~Channel();
 
 		void initClient(int fd);
 		void delClient(int fd);

@@ -7,13 +7,13 @@
 #include "Socket.hpp"
 #include "Client.hpp"
 #include "Kqueue.hpp"
-#include "Resource.hpp"
+#include "Channel.hpp"
 
 class Server {
 	private:
 		Socket serv;
 		Kqueue kq;
-		Resource resource;
+		Channel channel;
 
 	public:
 		Server(std::string _port);
