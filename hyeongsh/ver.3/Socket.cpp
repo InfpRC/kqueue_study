@@ -13,6 +13,8 @@ Socket::Socket(std::string &_port, std::string &_password) : port(strtod(_port.c
 
 Socket::~Socket() {}
 
+#include <unistd.h>
+
 int Socket::acceptSock() {
 	memset(&address, 0, sizeof(address));
 	int clnt = accept(fd, (struct sockaddr *)&address, &address_size);

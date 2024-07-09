@@ -55,6 +55,10 @@ void Server::channelService(Client &clnt) {
 	std::string message = clnt.getRecvBuf();
 	Channel::iterator user = channel.begin();
 	while (user != channel.end()) {
+		if (user->first == clnt.getFd()) {
+			user++;
+			continue ;
+		}
 		user->second.setSendBuf(clnt.getRecvBuf());
 		kq.addEvent(user->first, EVFILT_WRITE);
 		user++;
