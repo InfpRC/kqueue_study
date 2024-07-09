@@ -10,6 +10,7 @@
 class Socket {
 	private:
 		int port;
+		std::string password;
 		int fd;
 		struct sockaddr_in address;
 		socklen_t address_size;
@@ -20,7 +21,7 @@ class Socket {
 		void setNonBlock(int fd);
 
 	public:
-		Socket(std::string &_port);
+		Socket(std::string &_port, std::string &_password);
 		~Socket();
 
 		int acceptSock();

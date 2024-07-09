@@ -19,7 +19,7 @@ class Server {
 		void channelService(Client &clnt);
 
 	public:
-		Server(std::string _port);
+		Server(std::string _port, std::string _password);
 		~Server();
 		void run();
 };

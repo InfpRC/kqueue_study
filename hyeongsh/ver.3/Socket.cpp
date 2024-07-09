@@ -1,7 +1,7 @@
 
 #include "Socket.hpp"
 
-Socket::Socket(std::string &_port) : port(strtod(_port.c_str(), 0)), address_size(sizeof(address)) {
+Socket::Socket(std::string &_port, std::string &_password) : port(strtod(_port.c_str(), 0)), password(_password), address_size(sizeof(address)) {
 	fd = socket(PF_INET, SOCK_STREAM, 0);
 	if (fd == -1)
 		throw std::runtime_error("socket() error");
