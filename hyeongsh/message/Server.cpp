@@ -30,7 +30,8 @@ void Server::run() {
 					close(clnt_fd);
 				} else if (result == END) {
 					//echoService(clnt);
-					channelService(clnt);
+					//channelService(clnt);
+					parsing(clnt);
 				} else {
 					continue ;
 				}
@@ -55,14 +56,27 @@ void Server::channelService(Client &clnt) {
 	std::string message = clnt.getRecvBuf();
 	Channel::iterator user = channel.begin();
 	while (user != channel.end()) {
-		if (user->first == clnt.getFd()) {
-			user++;
-			continue ;
-		}
 		user->second.setSendBuf(clnt.getRecvBuf());
 		kq.addEvent(user->first, EVFILT_WRITE);
 		user++;
 	}
 	clnt.clearRecvBuf();
-	kq.addEvent(clnt.getFd(), EVFILT_WRITE);
+}
+
+void Server::parsing(Client &clnt) {
+	while (clnt.getRecvBuf().size()) {
+		std::cout << clnt.getRecvBuf() << ":::" << std::endl;
+		Message message(&clnt);
+		if (message.getCommand() == "NICK") {
+			clnt.setNickname(message.getParams(0));
+		} else if (message.getCommand() == "USER") {
+			clnt.setUsername(message.getParams(0));
+			clnt.setRealname(message.getParams(3));
+			clnt.setSendBuf(":irc.seoul42.com 001 " + clnt.getNickname() + " :Welcome to the Internet Relay Network randomuser\n");
+			clnt.setSendBuf(":irc.seoul42.com 002 " + clnt.getNickname() + " :Your host is irc.seoul42.com\n");
+			clnt.setSendBuf(":irc.seoul42.com 003 " + clnt.getNickname() + " :This server was created Mon Jul 9 2024 at 10:00:00 GMT\n");
+			clnt.setSendBuf(":irc.seoul42.com 004 " + clnt.getNickname() + " :irc.example.com 1.0 o o\n");
+			kq.addEvent(clnt.getFd(), EVFILT_WRITE);
+		}
+	}
 }

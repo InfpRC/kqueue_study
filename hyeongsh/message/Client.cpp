@@ -1,7 +1,13 @@
 
 #include "Client.hpp"
 
-Client::Client(int _fd) : fd(_fd) {}
+Client::Client(int _fd) : fd(_fd) {
+	struct sockaddr_in client_addr;
+    socklen_t addr_len = sizeof(client_addr);
+
+	getsockname(fd, (struct sockaddr *)&client_addr, &addr_len);
+	ip = inet_ntoa(client_addr.sin_addr);
+}
 
 Client::~Client() {}
 
@@ -10,8 +16,8 @@ int Client::recvSocket() {
 	if (recv(fd, buf, sizeof(buf), 0) <= 0) {
 		return EOF;
 	}
-	recv_buffer.append(buf);
-	if (recv_buffer[recv_buffer.size() - 1] == '\n') {
+	setRecvBuf(buf);
+	if (recv_buffer.find("\n") != std::string::npos) {
 		return END;
 	}
 	return CONTINUE;
@@ -30,7 +36,7 @@ int Client::getFd() const {
 }
 
 std::string Client::getRecvBuf() const {
-	return recv_buffer;
+	return recv_buffer.substr(0, recv_buffer.find("\n") + 1);
 }
 
 std::string Client::getSendBuf() const {
@@ -38,17 +44,49 @@ std::string Client::getSendBuf() const {
 }
 
 void Client::setRecvBuf(std::string message) {
-	recv_buffer = message;
+	recv_buffer.append(message);
 }
 
 void Client::setSendBuf(std::string message) {
-	send_buffer = message;
+	send_buffer.append(message);
 }
 
 void Client::clearRecvBuf() {
-	recv_buffer.clear();
+	recv_buffer = recv_buffer.substr(recv_buffer.find("\n") + 1, recv_buffer.size());
 }
 
 void Client::clearSendBuf() {
-	send_buffer.clear();
+	send_buffer = send_buffer.substr(send_buffer.find("\n") + 1, recv_buffer.size());
+}
+
+std::string Client::getNickname() {
+	return nickname;
+}
+
+std::string Client::getUsername() {
+	return username;
+}
+
+std::string Client::getIp() {
+	return ip;
+}
+
+std::string Client::getRealname() {
+	return realname;
+}
+
+void Client::setNickname(std::string _nickname) {
+	nickname = _nickname;
+}
+
+void Client::setUsername(std::string _username) {
+	username = _username;
+}
+
+void Client::setIp(std::string _ip) {
+	ip = _ip;
+}
+
+void Client::setRealname(std::string _realname) {
+	realname = _realname;
 }

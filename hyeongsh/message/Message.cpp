@@ -3,6 +3,7 @@
 
 Message::Message(Client *_clnt) : clnt(_clnt) {
 	std::stringstream ss(clnt->getRecvBuf());
+	clnt->clearRecvBuf();
 	std::string token;
 	ss >> command;
 	while (ss >> token && token[0] != ':') {
@@ -17,3 +18,12 @@ Message::Message(Client *_clnt) : clnt(_clnt) {
 }
 
 Message::~Message() {}
+
+std::string Message::getCommand() {
+	return command;
+}
+
+std::string Message::getParams(int i) {
+	return params[i];
+}
+

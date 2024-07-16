@@ -8,6 +8,7 @@
 #include "Client.hpp"
 #include "Kqueue.hpp"
 #include "Channel.hpp"
+#include "Message.hpp"
 
 class Server {
 	private:
@@ -17,6 +18,7 @@ class Server {
 
 		void echoService(Client &clnt);
 		void channelService(Client &clnt);
+		void parsing(Client &clnt);
 
 	public:
 		Server(std::string _port, std::string _password);
